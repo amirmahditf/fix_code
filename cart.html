@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>سبد خرید</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #d43f3f;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .navigation button {
+            margin: 0 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .navigation button:hover {
+            background-color: #0056b3;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navigation">
+    <button onclick="window.location.href='/home'">صفحه محصولات</button>
+    <button onclick="window.location.href='/cart'">مشاهده سبد خرید</button>
+    <button onclick="window.location.href='/settings'">تنظیمات</button>
+</div>
+
+{% if cart_items %}
+    <table>
+        <thead>
+            <tr>
+                <th>نام محصول</th>
+                <th>قیمت</th>
+                <th>تعداد</th>
+                <th>حذف</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product_id, details in cart_items.items() %}
+                <tr>
+                    <td>{{ details['name'] }}</td>
+                    <td>{{ details['price'] }} تومان</td>
+                    <td>
+                        <form action="{{ url_for('add_to_cart', product_id=product_id) }}" method="post">
+                            <input class="quantity-input" type="number" name="quantity" min="1" value="{{ details['quantity'] }}">
+                            <input type="submit" value="بروزرسانی">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('remove_from_cart', product_id=product_id) }}" method="post">
+                            <input class="delete-btn" type="submit" value="حذف">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>مجموع قیمت: {{ total_price }} تومان</p>
+{% else %}
+    <p>سبد خرید شما خالی است.</p>
+{% endif %}
+
+</body>
+</html>

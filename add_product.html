@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <!-- استایل‌های شما -->
+    <!-- ... (CSS styles) ... -->
+</head>
+<body>
+    <div class="container">
+        <h1>Add a New Product</h1>
+        <form action="/add" method="post">
+            <!-- فیلدهای فرم در این قسمت -->
+            <div class="user-box">
+                <input type="text" id="name" name="name" required>
+                <label for="name">Name:</label>
+            </div>
+            
+            <div class="user-box">
+                <input type="number" id="price" name="price" step="0.01" required>
+                <label for="price">Price:</label>
+            </div>
+
+            <div class="user-box">
+                <input type="number" id="stock" name="stock" required>
+                <label for="stock">Stock:</label>
+            </div>
+
+            <!-- در صورت نیاز به اضافه کردن توضیحات -->
+            <div class="user-box">
+                <textarea id="description" name="description" rows="4" cols="50" placeholder="Enter product description here..."></textarea>
+            </div>
+            
+            <input type="submit" value="Submit Product">
+        </form>
+        <!-- دکمه Back to Products List -->
+        <button class="back-btn" onclick="window.location.href='{{ url_for('index') }}'">Back to Products List</button>
+    </div>
+</body>
+</html>

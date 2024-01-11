@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>فروشگاه</title>
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background-color: #f4f4f4;
+            margin: 40px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 50px;
+        }
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            padding: 12px 24px; /* افزایش اندازه دکمه */
+            border: none;
+            border-radius: 25px; /* گوشه‌های گرد */
+            font-size: 16px; /* اندازه فونت */
+            transition: background-color 0.3s, transform 0.3s; /* انیمیشن تغییرات */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* سایه */
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: scale(1.05); /* افزایش اندازه هنگام هاور */
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .navigation button:nth-child(2) {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .navigation button:nth-child(2):hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navigation">
+    <button onclick="window.location.href='/cart'">مشاهده سبد خرید</button>
+    <button onclick="window.location.href=' '">صفحه محصولات</button>
+    <button onclick="window.location.href='/settings'">تنظیمات</button>
+</div>
+
+<h1>محصولات</h1>
+<ul>
+    {% for product in products %}
+        <li>
+            {{ product[1] }} - {{ product[2] }} تومان
+            <form action="{{ url_for('add_to_cart', product_id=product[0]) }}" method="post">
+                <input type="submit" value="افزودن به سبد خرید">
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
